@@ -39,9 +39,4 @@ public class LoginController {
     public String getUser(){
         return "songliang";
     }
-
-    @GetMapping("/videos/list")
-    public ResponseEntity videos(){
-        return ResponseEntity.ok(Lists.newArrayList(new JSONObject().fluentPut("id",1).fluentPut("name","1111")));
-    }
 }

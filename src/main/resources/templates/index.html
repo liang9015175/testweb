@@ -11,6 +11,8 @@
     <script src="/static/res/jquery-3.5.1.js"></script>
     <script src="/static/res/common.js"></script>
     <script src="/static/res/jquery.cookie.js"></script>
+    <!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
+    <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
     <script>
         layui.use('element', function () {
             var element = layui.element; //导航的hover效果、二级菜单等功能，需要依赖element模块
@@ -22,12 +24,35 @@
             });
         });
     </script>
-    <script>
-
+    <script type="text/javascript">
+        $('#my-video').bind('contextmenu', function () {
+            return false;
+        })
     </script>
+    <link href="https://vjs.zencdn.net/7.8.4/video-js.css" rel="stylesheet"/>
+    <!-- City -->
+    <!-- Video.js base CSS -->
+    <link href="https://unpkg.com/video.js@7/dist/video-js.min.css" rel="stylesheet">
 
+    <!-- City -->
+    <link href="https://unpkg.com/@videojs/themes@1/dist/city/index.css" rel="stylesheet">
+
+    <!-- Fantasy -->
+    <link href="https://unpkg.com/@videojs/themes@1/dist/fantasy/index.css" rel="stylesheet">
+
+    <!-- Forest -->
+    <link href="https://unpkg.com/@videojs/themes@1/dist/forest/index.css" rel="stylesheet">
+
+    <!-- Sea -->
+    <link href="https://unpkg.com/@videojs/themes@1/dist/sea/index.css" rel="stylesheet">
 </head>
+<style>
+    .layui-col-xs3 {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
 
+</style>
 <body>
 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
     <legend>PanghuPet</legend>
@@ -38,7 +63,7 @@
     <li class="layui-nav-item layui-this">
         <a href="javascript:;">视频</a>
         <dl id="spiderMenu" class="layui-nav-child">
-            <dd v-for="item in items" ><a href="">{{item.message}}</a></dd>
+            <dd v-for="item in items"><a href="">{{item.message}}</a></dd>
         </dl>
     </li>
     <li class="layui-nav-item"><a href="">图片</a></li>
@@ -47,109 +72,82 @@
 
 <div class="layui-container">
     <div class="layui-row">
-        <div class="layui-col-xs3 layui-border-box">
-            <div class="grid-demo grid-demo-bg1"><img src="/static/res/img/panghu.jpg" alt="panghu" style="height: 100%;width: 100%">
-            </div>
-            <div class="grid-demo grid-demo-bg1">
-                <span class="layui-field-title">panghu</span>
-                <span class="duration">3 mins</span>
-            </div>
-        </div>
-        <div class="layui-col-xs3">
-            <div class="grid-demo grid-demo-bg1"><img src="/static/res/img/panghu.jpg" alt="panghu" style="height: 100%;width: 100%">
-            </div>
-            <div class="grid-demo grid-demo-bg1">
-                <span class="layui-field-title">panghu</span>
-                <span class="duration">3 mins</span>
-            </div>
-        </div>
-        <div class="layui-col-xs3">
-            <div class="grid-demo grid-demo-bg1"><img src="/static/res/img/panghu.jpg" alt="panghu" style="height: 100%;width: 100%">
-            </div>
-            <div class="grid-demo grid-demo-bg1">
-                <span class="layui-field-title">panghu</span>
-                <span class="duration">3 mins</span>
-            </div>
-        </div>
-        <div class="layui-col-xs3">
-            <div class="grid-demo grid-demo-bg1"><img src="/static/res/img/panghu.jpg" alt="panghu" style="height: 100%;width: 100%">
-            </div>
-            <div class="grid-demo grid-demo-bg1">
-                <span class="layui-field-title">panghu</span>
-                <span class="duration">3 mins</span>
-            </div>
+        <div class="spider-hot-video" style="width: 100%;height: 450px;padding-bottom: 10px;">
+            <video style="    object-fit: fill;width: 100%;height: 100%"
+                   id="my-video"
+                   class="video-js vjs-theme-fantasy"
+                   controls
+                   preload="auto"
+                   data-setup="{}"
+                   oncontextmenu="return false"
+                   onplay="f()">
+                <source src="/static/res/video/1.mp4" type="video/mp4"/>
+                <p class="vjs-no-js">
+                    To view this video please enable JavaScript, and consider upgrading to a
+                    web browser that
+                    <a href="https://videojs.com/html5-video-support/" target="_blank"
+                    >supports HTML5 video</a
+                    >
+                </p>
+            </video>
         </div>
     </div>
-    <div class="layui-row">
-        <div class="layui-col-xs3 layui-border-box">
-            <div class="grid-demo grid-demo-bg1"><img src="/static/res/img/panghu.jpg" alt="panghu" style="height: 100%;width: 100%">
+    <div class="layui-row" id="video-list">
+        <div class="layui-col-xs3 " v-for="video in videos">
+            <div class="grid-demo grid-demo-bg1" ><img v-bind:src="video.url" v-bind:alt="video.name"
+                                                      style="height: auto;width: auto;max-height: 100%;max-width: 100%">
             </div>
             <div class="grid-demo grid-demo-bg1">
-                <span class="layui-field-title">panghu</span>
-                <span class="duration">3 mins</span>
+                <span class="layui-field-title">{{video.name}}</span>
+                <span class="duration">{{video.duration}}</span>
             </div>
         </div>
-        <div class="layui-col-xs3">
-            <div class="grid-demo grid-demo-bg1"><img src="/static/res/img/panghu.jpg" alt="panghu" style="height: 100%;width: 100%">
-            </div>
-            <div class="grid-demo grid-demo-bg1">
-                <span class="layui-field-title">panghu</span>
-                <span class="duration">3 mins</span>
-            </div>
-        </div>
-        <div class="layui-col-xs3">
-            <div class="grid-demo grid-demo-bg1"><img src="/static/res/img/panghu.jpg" alt="panghu" style="height: 100%;width: 100%">
-            </div>
-            <div class="grid-demo grid-demo-bg1">
-                <span class="layui-field-title">panghu</span>
-                <span class="duration">3 mins</span>
-            </div>
-        </div>
-        <div class="layui-col-xs3">
-            <div class="grid-demo grid-demo-bg1"><img src="/static/res/img/panghu.jpg" alt="panghu" style="height: 100%;width: 100%">
-            </div>
-            <div class="grid-demo grid-demo-bg1">
-                <span class="layui-field-title">panghu</span>
-                <span class="duration">3 mins</span>
-            </div>
-        </div>
+
     </div>
-    <div id="demo1"></div>
+    <div id="demo1" style="margin-left: auto;margin-right: auto;text-align: center;"></div>
 
 </div>
 </body>
 <script src="/static/res/vue.js" type="text/javascript"></script>
 
 <script>
-    $.cookie('x-auth-token','800e53934ff341d3abe8e17743a0306f',{ expires: 7 });
-    var token=$.cookie('x-auth-token');
+    $.cookie('x-auth-token', '800e53934ff341d3abe8e17743a0306f', {expires: 7});
+    var token = $.cookie('x-auth-token');
     var vue = new Vue({
         el: '#spiderMenu',
         data: {
-            items:[
-                {message:'张三'},
-                {message:'李四'},
-                {message:'王五'}
-            ]
-        },
-        methods:{
-            getVideos:function (event) {
-                console.log(event)
-                $.ajax({
-                    headers: {
-                        Accept: "application/json; charset=utf-8",
-                        'x-auth-token': token
-                    },
-                    url:host+"api/spider/videos/list",
-                    type:'GET',
-                    data:{},
-                    dataType:'application/json'
-                }).then(function (res) {
-                    console.log(res)
-                })
-            }
+            items: [
+                {message: '张三'},
+                {message: '李四'},
+                {message: '王五'}
+            ],
         }
     });
+    var videoVue=new Vue({
+        el:'#video-list',
+        data:{
+            videos:[
+
+            ]
+        },
+        mounted:function () {
+            $.ajax({
+                headers: {
+                    Accept: "application/json; charset=utf-8",
+                    'x-auth-token': token
+                },
+                url: "api/spider/videos/list",
+                type: 'GET',
+                data: {curPage:1,pageSize:12},
+                dataType: 'json',
+                success:function (res) {
+                    //console.log(res)
+                    videoVue.$data.videos=res;
+
+                }
+            })
+        }
+    })
     layui.use(['laypage', 'layer'], function () {
         var laypage = layui.laypage
             , layer = layui.layer;
@@ -159,22 +157,31 @@
             elem: 'demo1',
             count: 70,//数据总数,
             limit: 5,
-            jump:function (event) {
-                console.log(event)
+            jump: function () {
                 $.ajax({
                     headers: {
                         Accept: "application/json; charset=utf-8",
                         'x-auth-token': token
                     },
-                    url:"api/spider/videos/list",
-                    type:'GET',
-                    data:{},
-                    dataType:'application/json'
-                }).then(function (res) {
-                    console.log(res)
+                    url: "api/spider/videos/list",
+                    type: 'GET',
+                    data: {curPage:this.curr,pageSize:12},
+                    dataType: 'json',
+                    success:function (res) {
+                        console.log(res)
+                        videoVue.videos=res
+                        console.log(videoVue.$data.videos)
+
+                    }
                 })
             }
         });
     });
 </script>
+<script type="text/javascript">
+    function f() {
+
+    }
+</script>
+<script src="https://vjs.zencdn.net/7.8.4/video.js"></script>
 </html>
