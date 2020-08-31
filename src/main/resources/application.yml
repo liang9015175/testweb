@@ -1,8 +1,4 @@
 spring:
-  thymeleaf:
-    enabled: true
-  mvc:
-    static-path-pattern: static/**
   devtools:
     livereload:
       enabled: true

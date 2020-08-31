@@ -6,6 +6,7 @@ import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -16,12 +17,13 @@ import java.util.concurrent.TimeUnit;
  * @date 2020/8/27
  * @description
  */
-@RestController
+@Controller
 @RequestMapping("/api/spider")
 public class LoginController {
 
     @Autowired
     private RedisTemplate<String,String> redisTemplate;
+    @ResponseBody
     @PostMapping("/login")
     public ResponseEntity login(String username, String password) throws InterruptedException {
         //mock 成功
@@ -33,7 +35,10 @@ public class LoginController {
         redisTemplate.expire(token,24, TimeUnit.HOURS);
         return ResponseEntity.<String>ok(token);
     }
-
+    @RequestMapping("/loginPage")
+    public String loginPage(){
+        return "login";
+    }
     @ResponseBody
     @GetMapping("/auth/getUser")
     public String getUser(){

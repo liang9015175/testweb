@@ -5,30 +5,17 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="/static/res/css/layui.css" media="all">
-    <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
-    <script src="/static/res/layui.js" charset="utf-8"></script>
-    <script src="/static/res/jquery-3.5.1.js"></script>
-    <script src="/static/res/common.js"></script>
-    <script src="/static/res/jquery.cookie.js"></script>
     <!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
-    <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
-    <script>
-        layui.use('element', function () {
-            var element = layui.element; //导航的hover效果、二级菜单等功能，需要依赖element模块
 
-            //监听导航点击
-            element.on('nav(demo)', function (elem) {
-                //console.log(elem)
-                layer.msg(elem.text());
-            });
-        });
-    </script>
-    <script type="text/javascript">
-        $('#my-video').bind('contextmenu', function () {
-            return false;
-        })
-    </script>
+    <!--bootstrap-->
+    <script src="/static/res/jquery-3.5.1.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="/static/res/common.js"></script>
+    <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
+    <script src="/static/res/jquery.cookie.js"></script>
+    <script src="/static/res/jquery.twbsPagination.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link href="https://vjs.zencdn.net/7.8.4/video-js.css" rel="stylesheet"/>
     <!-- City -->
     <!-- Video.js base CSS -->
@@ -46,41 +33,55 @@
     <!-- Sea -->
     <link href="https://unpkg.com/@videojs/themes@1/dist/sea/index.css" rel="stylesheet">
 </head>
-<style>
-    .layui-col-xs3 {
-        padding-left: 5px;
-        padding-right: 5px;
-    }
-
-</style>
 <body>
-<fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
-    <legend>PanghuPet</legend>
-</fieldset>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">PanghuPet</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="VideoDropdownMenu" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Videos
+                </a>
+                <div class="dropdown-menu" aria-labelledby="VideoDropdownMenu">
+                <a class="dropdown-item" href="#">Cate_1</a>
+                <a class="dropdown-item" href="#">Cate_2</a>
+                <a class="dropdown-item" href="#">Cate_3</a>
+            </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Pics</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Me
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="#">Vip</a>
+                    <a class="dropdown-item" href="#">Info</a>
+                    <a class="dropdown-item" href="#">Collections</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
 
-<ul class="layui-nav">
-    <li class="layui-nav-item"><a href="">首页</a></li>
-    <li class="layui-nav-item layui-this">
-        <a href="javascript:;">视频</a>
-        <dl id="spiderMenu" class="layui-nav-child">
-            <dd v-for="item in items"><a href="">{{item.message}}</a></dd>
-        </dl>
-    </li>
-    <li class="layui-nav-item"><a href="">图片</a></li>
-    <li class="layui-nav-item"><a href="">我的</a></li>
-</ul>
-
-<div class="layui-container">
-    <div class="layui-row">
-        <div class="spider-hot-video" style="width: 100%;height: 450px;padding-bottom: 10px;">
-            <video style="    object-fit: fill;width: 100%;height: 100%"
-                   id="my-video"
-                   class="video-js vjs-theme-fantasy"
-                   controls
-                   preload="auto"
-                   data-setup="{}"
-                   oncontextmenu="return false"
-                   onplay="f()">
+<div class="container">
+    <div class="row">
+        <div class="embed-responsive embed-responsive-16by9">
+            <video
+                    id="my-video"
+                    class="video-js vjs-theme-fantasy embed-responsive-item"
+                    controls
+                    preload="auto"
+                    data-setup="{}"
+                    oncontextmenu="return false"
+                    onplay="f()">
                 <source src="/static/res/video/1.mp4" type="video/mp4"/>
                 <p class="vjs-no-js">
                     To view this video please enable JavaScript, and consider upgrading to a
@@ -92,43 +93,34 @@
             </video>
         </div>
     </div>
-    <div class="layui-row" id="video-list">
-        <div class="layui-col-xs3 " v-for="video in videos">
-            <div class="grid-demo grid-demo-bg1" ><img v-bind:src="video.url" v-bind:alt="video.name"
-                                                      style="height: auto;width: auto;max-height: 100%;max-width: 100%">
-            </div>
-            <div class="grid-demo grid-demo-bg1">
-                <span class="layui-field-title">{{video.name}}</span>
-                <span class="duration">{{video.duration}}</span>
-            </div>
+    <div class="row" id="video-list">
+        <div class="col-3"  v-for="video in videos">
+            <img class="img-fluid" alt="Responsive image" v-bind:src="video.url" v-bind:alt="video.name">
+            <span class="float-left"><a  v-on:click="redirectToDetail(video.id)" style="color: #0b2e13">{{video.name}}</a></span></a>
+            <span class="float-right">{{video.duration}}</span>
         </div>
-
     </div>
-    <div id="demo1" style="margin-left: auto;margin-right: auto;text-align: center;"></div>
-
 </div>
-</body>
-<script src="/static/res/vue.js" type="text/javascript"></script>
 
+<nav aria-label="Page navigation example">
+    <ul id="pagination-demo" class="pagination justify-content-center"></ul></nav>
+</body>
+<script src="https://vjs.zencdn.net/7.8.4/video.js"></script>
+<script src="/static/res/vue.js" type="text/javascript"></script>
 <script>
     $.cookie('x-auth-token', '800e53934ff341d3abe8e17743a0306f', {expires: 7});
     var token = $.cookie('x-auth-token');
-    var vue = new Vue({
-        el: '#spiderMenu',
-        data: {
-            items: [
-                {message: '张三'},
-                {message: '李四'},
-                {message: '王五'}
-            ],
-        }
-    });
     var videoVue=new Vue({
         el:'#video-list',
         data:{
             videos:[
 
             ]
+        },
+        methods:{
+           redirectToDetail: function(id){
+                window.location.href="detail.html?videoId="+id;
+            }
         },
         mounted:function () {
             $.ajax({
@@ -148,40 +140,33 @@
             })
         }
     })
-    layui.use(['laypage', 'layer'], function () {
-        var laypage = layui.laypage
-            , layer = layui.layer;
 
-        //总页数大于页码总数
-        laypage.render({
-            elem: 'demo1',
-            count: 70,//数据总数,
-            limit: 5,
-            jump: function () {
-                $.ajax({
-                    headers: {
-                        Accept: "application/json; charset=utf-8",
-                        'x-auth-token': token
-                    },
-                    url: "api/spider/videos/list",
-                    type: 'GET',
-                    data: {curPage:this.curr,pageSize:12},
-                    dataType: 'json',
-                    success:function (res) {
-                        console.log(res)
-                        videoVue.videos=res
-                        console.log(videoVue.$data.videos)
 
-                    }
-                })
-            }
-        });
-    });
 </script>
 <script type="text/javascript">
     function f() {
-
+        console.log("going to caculate dau")
     }
+    $('#pagination-demo').twbsPagination({
+        totalPages: 50,
+        visiblePages: 5,
+        onPageClick: function (event,page) {
+            console.log(page);
+            $.ajax({
+                headers: {
+                    Accept: "application/json; charset=utf-8",
+                    'x-auth-token': token
+                },
+                url: "api/spider/videos/list",
+                type: 'GET',
+                data: {curPage:page,pageSize:12},
+                dataType: 'json',
+                success:function (res) {
+                    //console.log(res)
+                    videoVue.$data.videos=res;
+                }
+            })
+        }
+    })
 </script>
-<script src="https://vjs.zencdn.net/7.8.4/video.js"></script>
 </html>

@@ -1,33 +1,81 @@
 <!DOCTYPE html>
 <html id="ng-app" xmlns:th="http://www.thymeleaf.org" lang="zh">
 <head>
-    <meta charset="UTF-8"/>
-    <title>home</title>
+    <meta charset="utf-8">
+    <title>Layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
+
+    <!--bootstrap-->
+    <script src="/static/res/jquery-3.5.1.js"></script>
+    <script src="/static/res/bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="/static/res/bootstrap/js/bootstrap.js"></script>
+
+    <script src="/static/res/common.js"></script>
+    <script src="/static/res/jquery.cookie.js"></script>
+    <script src="/static/res/jquery.twbsPagination.min.js"></script>
+    <link href="/static/res/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="/static/res/bootstrap/css/bootstrap-grid.css" rel="stylesheet">
+    <link href="/static/res/bootstrap/css/bootstrap-reboot.css" rel="stylesheet">
 </head>
 <body>
-<form class="form-signin" action="/login" method="post">
-    <h2 class="form-signin-heading">用户登录</h2>
-    <table>
-        <tr>
-            <td>用户名:</td>
-            <td><label>
-                <input type="text" name="username" class="form-control" placeholder="请输入用户名"/>
-            </label>
-            </td>
-        </tr>
-        <tr>
-            <td>密码:</td>
-            <td><label>
-                <input type="password" name="password" class="form-control" placeholder="请输入密码"/>
-            </label></td>
-        </tr>
-        <tr>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">PanghuPet</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="VideoDropdownMenu" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Videos
+                </a>
+                <div class="dropdown-menu" aria-labelledby="VideoDropdownMenu">
+                    <a class="dropdown-item" href="#">Cate_1</a>
+                    <a class="dropdown-item" href="#">Cate_2</a>
+                    <a class="dropdown-item" href="#">Cate_3</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Pics</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Me
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="#">Vip</a>
+                    <a class="dropdown-item" href="#">Info</a>
+                    <a class="dropdown-item" href="#">Collections</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
 
-            <td colspan="2">
-                <button type="submit" class="btn btn-lg btn-primary btn-block">登录</button>
-            </td>
-        </tr>
-    </table>
-</form>
+<div class="container">
+    <div class="row">
+        <form class="justify-content-center" action="/api/spider/login" method="post" >
+            <h2 class="form-signin-heading">Login</h2>
+            <form>
+                <div class="form-group">
+                    <label for="username">Email address</label>
+                    <input type="text" class="form-control" id="username" aria-describedby="usernameHelper">
+                    <small id="usernameHelper" class="form-text text-muted">We'll never share your info with anyone else.</small>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </form>
+    </div>
+</div>
 </body>
 </html>
